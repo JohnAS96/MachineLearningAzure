@@ -1,0 +1,44 @@
+{
+    "model": {
+        "name": "TrafficPredictionModel",
+        "type": "time_series_forecasting",
+        "algorithm": "ARIMA",
+        "description": "Modelo para previs\u00e3o de tr\u00e1fego de rede para ISPs"
+    },
+    "endpoints": {
+        "/train": {
+            "method": "POST",
+            "description": "Treina o modelo com novos dados",
+            "parameters": {
+                "data": "array of historical traffic data",
+                "time_range": "start and end timestamps"
+            }
+        },
+        "/predict": {
+            "method": "POST",
+            "description": "Gera uma previs\u00e3o com base nos dados fornecidos",
+            "parameters": {
+                "time_range": "start and end timestamps for prediction"
+            },
+            "response": {
+                "prediction": "array of predicted values",
+                "confidence": "confidence interval for the prediction"
+            }
+        },
+        "/status": {
+            "method": "GET",
+            "description": "Retorna o status do modelo",
+            "response": {
+                "last_trained": "timestamp of last training",
+                "accuracy": "current accuracy of the model"
+            }
+        },
+        "/update": {
+            "method": "POST",
+            "description": "Atualiza o modelo com dados mais recentes",
+            "parameters": {
+                "new_data": "array of recent traffic data"
+            }
+        }
+    }
+}
